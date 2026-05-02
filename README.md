@@ -3,7 +3,7 @@
 Sarah T. Arai<br>
 Software Laboratory antillia.com<br>
 <br>
-This is the first experiment of Image Segmentation for MU Glioma Post (University of Missouri Post-operative Glioma) T1N(Native T1WI) Subset,
+This is the first experiment of Image Segmentation for Pardoe-Hippocampus-Amygdala,
  based on our 
 TensorFlowFlexUNet (TensorFlow Flexible UNet Image Segmentation Model for Multiclass) 
 and a 512x600 pixels upscaled PNG 
@@ -16,8 +16,7 @@ which was derived by us from <br><br>
 a 3D convolutional neural network trained on whole brain 700 µm isotropic 7T MP2RAGE MRI
 </b>
 </a>
-<br>
-<br>
+<br><br>
 <hr>
 <b>Actual Image Segmentation for  Pardoe-Hippocampus-Amygdala Images of 512x600 pixels</b><br>
 As shown below, the inferred masks predicted by our segmentation model trained on the 
@@ -118,7 +117,7 @@ expand the downloaded dataset, and put it under <b>./dataset</b> folder to be:
 <b>Pardoe-Hippocampus-Amygdala Statistics</b><br>
 <img src ="./projects/TensorFlowFlexUNet/Pardoe-Hippocampus-Amygdala/Pardoe-Hippocampus-Amygdala_Statistics.png" width="512" height="auto"><br>
 <br>
-As shown above, the number of images of train and valid datasets is large enough to use for a training set of our segmentation model.
+As shown above, the number of images of train and valid datasets is not enough to use for a training set of our segmentation model.
 <br>
 <br>
 <h4>2.2 Derivation of ImageMask Subset</h4>
@@ -138,7 +137,7 @@ The folder structure of <b>pardoe_cnnmp2rage_labelling_mri_scans_20200926</b> is
   │  │    ├─sub-control01_acq-MP2R700um7T_T1w_defaced_reorient.nii.gz
 ...
   ├─sub-control02
-  │  ├─anat...
+  │  ├─anat
 ...
   └─sub-epilepsy17
       └─anat
@@ -153,8 +152,7 @@ The folder structure of <b>pardoe_cnnmp2rage_labelling_mri_scans_20200926</b> is
            └─sub-epilepsy17_acq-MP2R700um7T_T1w_defaced_reorient.nii.gz        
 
 </pre>
-We used a simple Python script to generate our 512x600 pixels upscaled PNG 
-<b></b>  
+We used a simple Python script to generate our 512x600 pixels upscaled PNG dataset
 with colorized masks from  all pairs of <b>*_T1w_defaced_reorient.nii.gz</b> 
 and corresponding <b>*_T1w_defaced_reorient_subtrMeanDivStd_pred_Segm.nii.gz</b> in <b>anat</b> sub directories of 
 <b>sub_*</b> directories. You may use manual annotation files <b>*_hipp_amyg_reorient.nii.gz</b> instead of predicted segmentation files 
@@ -162,8 +160,10 @@ and corresponding <b>*_T1w_defaced_reorient_subtrMeanDivStd_pred_Segm.nii.gz</b>
 <br><br>
 For simplicity, we excluded all empty black masks and their corresponding images to generate our PNG dataset, which were 
 irrelevant to train our segmentation model, 
-and upscaled all images and masks to 512x600 pixels from the original 256x300 pixels.
-<br>
+and upscaled all images and masks to 512x600 pixels from the original 256x300 pixels.<br>
+While the original dataset had four annotation classes (Left-Hippocampus, Right-Hippocampus, Left-Amygdala, and Right-Amygdala), 
+we reduced the number of classes to two (Hippocampus and Amygdala) to generate our PNG dataset.
+<br><br>
 
 <h4>2.3 Image and Mask samples</h4>
 <b>Train_images_sample</b><br>
